@@ -1,0 +1,69 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Dinner Platters
+{% endblock %}
+
+{% block body %}
+
+  {% if dinnerplatters %}
+
+    <h4>Select your Dinner Platters</h4>
+
+    {% for item in dinnerplatters %}
+
+      <section>
+         <div class="label_items">
+          <br>
+            <h4>{{ item.item }}</h4>
+        </div>
+
+        {% if item.small %}
+          <div>
+            <input type="radio" id="{{ item.id }}" name="select" value="" onclick="displayAddtoCart('{{ item.item }}',
+             'Small', {{ item.small }} )">
+            <label for="{{ item.id }}">
+              <h5>Small</h5>
+              <h4>$ {{ item.small }}</h4>
+            </label>
+          </div>
+        {% endif %}
+
+        {% if item.large %}
+          <div>
+            <input type="radio" id="{{ item.id }}L" name="select" value="" onclick="displayAddtoCart('{{ item.item }}',
+            'Large', {{ item.large }} )">
+            <label for="{{ item.id }}L">
+              <h5>Large</h5>
+              <h4>$ {{ item.large }}</h4>
+            </label>
+          </div>
+        {% endif %}
+      </section>
+
+    {% endfor %}
+
+
+    <form id="noTopping" action="{% url 'addtoCart' %}" method="POST" onsubmit="return checkQuantity()">
+      {% csrf_token %}
+      <input type="hidden" name="category" value="{{ category }}">
+      <input type="hidden" id="item" name="item" value="">
+      <input type="hidden" id="addition" name="addition" value="">
+      <input type="hidden" id="size" name="size" value="">
+      <input type="hidden" id="priceEach" name="priceEach" value="">
+
+      <div class="number">
+            Quantity
+            <span class="minus">-</span>
+            <input type="number" class="itemquantity" name="quant" id="itemquantity0" value="1" min="1"/>
+            <span class="plus">+</span>
+      </div>
+
+      <br><br>
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+
+  {% endif %}
+
+
+{% endblock %}

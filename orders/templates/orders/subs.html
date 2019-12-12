@@ -1,0 +1,119 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Subs
+{% endblock %}
+
+{% block body %}
+
+  {% if subs %}
+
+    <h4>Select your subs</h4>
+
+    {% for sub in subs %}
+
+      <section>
+         <div class="label_items">
+          <br>
+            <h4>{{ sub.item }}</h4>
+        </div>
+
+        {% if sub.small %}
+          <div>
+            <input type="radio" id="{{ sub.id }}" name="select" value="" onclick="displayAddSmall('{{ sub.item }}',
+             'Small', {{ sub.small }} )">
+            <label for="{{ sub.id }}">
+              <h5>Small</h5>
+              <h4>$ {{ sub.small }}</h4>
+            </label>
+          </div>
+        {% endif %}
+
+        {% if sub.large %}
+          <div>
+            <input type="radio" id="{{ sub.id }}L" name="select" value="" onclick="displayAddLarge('{{ sub.item }}',
+            'Large', {{ sub.large }} )">
+            <label for="{{ sub.id }}L">
+              <h5>Large</h5>
+              <h4>$ {{ sub.large }}</h4>
+            </label>
+          </div>
+        {% endif %}
+      </section>
+
+    {% endfor %}
+
+
+    <form id="Additions_S" action="{% url 'addtoCart' %}" method="POST" onsubmit="return checkSubExtra('Small')">
+      {% csrf_token %}
+      <input type="hidden" name="category" value="{{ category }}">
+      <input type="hidden" id="sub_small" name="item" value="">
+      <input type="hidden" id="additionS" name="addition" value="">
+      <input type="hidden" id="sizeS" name="size" value="">
+      <input type="hidden" id="priceEachS" name="priceEach" value="">
+
+      <div class="number">
+            Quantity
+            <span class="minus">-</span>
+            <input type="number" class="itemquantity" name="quant" id="itemquantityS" value="1" min="1"/>
+            <span class="plus">+</span>
+      </div>
+      <br>
+      <h4>Extra</h4>
+      <br>
+       {% for item in additions %}
+
+        <div class="number">
+          <span class="extraS">{{ item.addition }}</span> (Additional $ {{ item.small }})
+          <span class="minus">-</span>
+          <input type="number" class="quantityS" value="0" min="0"/>
+          <span class="plus">+</span>
+        </div>
+
+        <input type="hidden" class="extraChargeS" value={{ item.small }}>
+
+      {% endfor %}
+
+      <br><br>
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+
+    <form id="Additions_L" action="{% url 'addtoCart' %}" method="POST" onsubmit="return checkSubExtra('Large')">
+      {% csrf_token %}
+      <input type="hidden" name="category" value="{{ category }}">
+      <input type="hidden" id="sub_large" name="item" value="">
+      <input type="hidden" id="additionL" name="addition" value="">
+      <input type="hidden" id="sizeL" name="size" value="">
+      <input type="hidden" id="priceEachL" name="priceEach" value="">
+
+      <div class="number">
+            Quantity
+            <span class="minus">-</span>
+            <input type="number" class="itemquantity" name="quant" id="itemquantityL" value="1" min="1"/>
+            <span class="plus">+</span>
+      </div>
+      <br>
+      <h4>Extra</h4>
+      <br>
+       {% for item in additions %}
+
+        <div class="number">
+          <span class="extraL">{{ item.addition }}</span> (Additional $ {{ item.large }})
+          <span class="minus">-</span>
+          <input type="number" class="quantityL" value="0" min="0"/>
+          <span class="plus">+</span>
+        </div>
+
+        <input type="hidden" class="extraChargeL" value={{ item.large }}>
+
+      {% endfor %}
+
+      <br><br>
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+
+
+  {% endif %}
+
+
+{% endblock %}

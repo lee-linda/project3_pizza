@@ -1,0 +1,99 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Sicilian Pizza
+{% endblock %}
+
+{% block body %}
+
+  {% if sicilianpizza %}
+
+    <h4>Select your pizza</h4>
+
+    {% for pizza in sicilianpizza %}
+      <section>
+         <div class="label_items">
+          <br>
+            <h4>{{ pizza.item.item }}</h4>
+        </div>
+
+        <div>
+          <input type="radio" id="{{ pizza.id }}" name="select" value="" onclick="displayToppings('{{ pizza.item.item }}',
+          {{ pizza.item.num_toppings }}, 'Small', {{ pizza.small }} )">
+          <label for="{{ pizza.id }}">
+            <h5>Small</h5>
+            <h4>$ {{ pizza.small }}</h4>
+          </label>
+        </div>
+        <div>
+          <input type="radio" id="{{ pizza.id }}L" name="select" value="" onclick="displayToppings('{{ pizza.item.item }}',
+          {{ pizza.item.num_toppings }}, 'Large', {{ pizza.large }} )">
+          <label for="{{ pizza.id }}L">
+            <h5>Large</h5>
+            <h4>$ {{ pizza.large }}</h4>
+          </label>
+        </div>
+
+      </section>
+    {% endfor %}
+
+
+    <form id="noTopping" action="{% url 'addtoCart' %}" method="POST" onsubmit="return checkQuantity()">
+      {% csrf_token %}
+      <input type="hidden" name="category" value="{{ category }}">
+      <input type="hidden" id="pizza_type0" name="item" value="">
+      <input type="hidden" id="numToppings0" name="numToppings" value="">
+      <input type="hidden" id="addition0" name="addition" value="">
+      <input type="hidden" id="size0" name="size" value="">
+      <input type="hidden" id="priceEach0" name="priceEach" value="">
+
+      <div class="number">
+            Quantity
+            <span class="minus">-</span>
+            <input type="number" class="itemquantity" name="quant" id="itemquantity0" value="1" min="1"/>
+            <span class="plus">+</span>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+
+
+    <form id="withToppings" action="{% url 'addtoCart' %}" method="POST" onsubmit="return checkItem()">
+      {% csrf_token %}
+      <input type="hidden" name="category" value="{{ category }}">
+      <input type="hidden" id="pizza_type" name="item" value="">
+      <input type="hidden" id="numToppings" name="numToppings" value="">
+      <input type="hidden" id="addition" name="addition" value="">
+      <input type="hidden" id="size" name="size" value="">
+      <input type="hidden" id="priceEach" name="priceEach" value="">
+
+      <div class="number">
+            Quantity
+            <span class="minus">-</span>
+            <input type="number" class="itemquantity" name="quant" id="itemquantity" value="1" min="1"/>
+            <span class="plus">+</span>
+      </div>
+      <br>
+      <h4>Add <span id="num_toppings"></span> toppings</h4>
+      <br>
+       {% for topping in toppings %}
+
+        <div class="number">
+          <span class="toppingName" >{{ topping.topping }}</span>
+          <span class="minus">-</span>
+          <input type="number" class="quantity" value="0" min="0"/>
+          <span class="plus">+</span>
+        </div>
+
+      {% endfor %}
+
+      <br><br>
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+
+
+
+  {% endif %}
+
+
+{% endblock %}

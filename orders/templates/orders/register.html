@@ -1,0 +1,56 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+ <main class="leftalign">
+<div class=' mx-auto w-75 p-3'>
+    {% if message %}
+        <main class="msg leftalign">
+            {{ message }}
+        </main>
+    {% endif %}
+
+   <form class='m-5' action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            *First name:
+            <br>
+            <input type="text" class="form-control" name="first_name" required>
+        </div>
+        <div class="form-group">
+            *Last name:
+            <br>
+            <input type="text" class="form-control" name="last_name" required>
+        </div>
+        <div class="form-group">
+            *Username:
+            <br>
+            <input type="text" class="form-control" name="username" required>
+        </div>
+        <div class="form-group">
+            *Email address:
+            <br>
+            <input type='password' style='display: none;' />        <!-- This line is added to remove autofill in Firefox browser. -->
+            <input type="email" class="form-control" name="email" required>
+        </div>
+        <div class="form-group">
+            *Password:
+            <br>
+            <input type='password' style='display: none;' />        <!-- This line is added to remove autofill in Firefox browser. -->
+            <input type="password" class="form-control" name="password" required>
+        </div>
+        <div class="form-group">
+            *Confirm Password:
+            <br>
+            <input type="password" class="form-control" name="password2" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Account</button>
+    </form>
+</div>
+</main>
+{% endblock %}
+
+

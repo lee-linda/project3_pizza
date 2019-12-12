@@ -1,0 +1,38 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block body %}
+    {% if message %}
+        <main class="msg">
+            {{ message }}
+        </main>
+    {% endif %}
+    <br>
+    <br>
+    Please log in with your account.
+    <br>
+    <br>
+    <form action="{% url 'login' %}" method="post" autocomplete="new-password">
+        {% csrf_token %}
+        <input type='password' style='display: none;' />    <!-- This line is added to remove autofill in Firefox browser. -->
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <input type='password' style='display: none;' />    <!-- This line is added to remove autofill in Firefox browser. -->
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+
+    <br>
+    <br>
+    No account yet? <a href="{% url 'register'%}">Register here.</a>
+
+{% endblock %}
+
+

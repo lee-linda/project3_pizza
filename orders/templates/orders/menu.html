@@ -1,0 +1,68 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block body %}
+
+    {% if message %}
+        <main class="msg">
+            {{ message }}
+        </main>
+        <br>
+    {% endif %}
+
+    <p>
+        <span class="menu_font"> Our Menu </span>
+    </p>
+
+    <div class="img-container-left">
+        <a href="{% url 'regularpizza' %}">
+            <img src="/static/orders/regular_pizza.jpg" alt="Regular Pizza" >
+        </a>
+        <br>
+        <a href="{% url 'regularpizza' %}"> <span class="menu_font_small">Regular Pizza</span> </a>
+    </div>
+
+    <div class="img-container-right">
+        <a href="{% url 'sicilianpizza' %}">
+            <img src="/static/orders/sicilian_pizza.jpg" alt="Sicilian Pizza" >
+        </a>
+        <br>
+        <a href="{% url 'sicilianpizza' %}"> <span class="menu_font_small">Sicilian Pizza</span> </a>
+    </div>
+
+    <div class="img-container-left">
+        <a href="{% url 'subs' %}">
+            <img src="/static/orders/subs.jpg" alt="Subs" >
+        </a>
+        <br>
+        <a href="{% url 'subs' %}"> <span class="menu_font_small">Subs</span> </a>
+    </div>
+
+    <div class="img-container-right">
+        <a href="{% url 'pasta' %}">
+            <img src="/static/orders/pasta.jpg" alt="Pasta" >
+        </a>
+        <br>
+        <a href="{% url 'pasta' %}"> <span class="menu_font_small">Pasta</span> </a>
+    </div>
+
+    <div class="img-container-left">
+        <a href="{% url 'salads' %}">
+            <img src="/static/orders/salads.jpg" alt="Salads" >
+        </a>
+        <br>
+        <a href="{% url 'salads' %}"> <span class="menu_font_small">Salads</span> </a>
+    </div>
+
+    <div class="img-container-right">
+        <a href="{% url 'dinnerplatters' %}">
+            <img src="/static/orders/dinnerplatters.jpg" alt="Dinner Platters" >
+        </a>
+        <br>
+        <a href="{% url 'dinnerplatters' %}"> <span class="menu_font_small">Dinner Platters</span> </a>
+    </div>
+
+{% endblock %}

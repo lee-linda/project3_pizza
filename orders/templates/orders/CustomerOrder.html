@@ -1,0 +1,79 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Customer Order
+{% endblock %}
+
+{% block body %}
+
+    {% if orderList %}
+
+        <h4>Customer Order</h4>
+
+        {% for orderGroup in orderList %}
+
+            <h6 class="leftalign"> Order No: {{ orderGroup.orderNo }} </h6>
+            <h6 class="leftalign"> Customer's Name: {{ orderGroup.customerName }} </h6>
+            <h6 class="leftalign"> Status of order: </h6>
+
+            <form class="leftalign" action="{% url 'updateOrdStatus' orderGroup.orderNo %}" method="POST">
+                {% csrf_token %}
+                <select name="status">
+                    {% for status in orderStatus %}
+                        {% if status.id == orderGroup.status %}
+                            <option value="{{ status.id }}" selected>{{ status.status }}</option>
+                        {% else %}
+                            <option value="{{ status.id }}">{{ status.status }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn save">Save</button>
+            </form>
+
+            <form action="{% url 'deleteOrder' orderGroup.orderNo %}" method="POST" onsubmit="return confirm('Confirm deletion?');">
+                {% csrf_token %}
+                <button type="submit" class="btn removeOrder">Delete This Order</button>
+            </form>
+            <br>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:40%">Item</th>
+                        <th style="width:15%">Size</th>
+                        <th style="width:15%">Quantity</th>
+                        <th style="width:15%">Price per Item</th>
+                        <th style="width:15%">Sub-Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in orderGroup.itemsByNo %}
+                    <tr>
+                        <td> {{ item.detailedItem }} <br> {{ item.addition }} </td>
+                        <td> {{ item.size }} </td>
+                        <td> {{ item.quantity }} </td>
+                        <td> $ {{ item.priceEach }} </td>
+                        <td> $ {{ item.itemTotal }} </td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> Total: </td>
+                        <td> $ {{ orderGroup.total }} </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+        {% endfor %}
+
+
+    {% else %}
+        No order.
+    {% endif %}
+
+
+{% endblock %}

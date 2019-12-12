@@ -1,0 +1,58 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    My Order
+{% endblock %}
+
+{% block body %}
+
+    {% if orderList %}
+
+        <h4>My order</h4>
+
+        {% for orderGroup in orderList %}
+
+            <h6 class="leftalign"> Order No: {{ orderGroup.orderNo }} </h6>
+            <h6 class="leftalign"> Status of order: <font color="#FFA500"> {{ orderGroup.status }} </font> </h6>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:40%">Item</th>
+                        <th style="width:15%">Size</th>
+                        <th style="width:15%">Quantity</th>
+                        <th style="width:15%">Price per Item</th>
+                        <th style="width:15%">Sub-Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in orderGroup.itemsByNo %}
+                    <tr>
+                        <td> {{ item.detailedItem }} <br> {{ item.addition }} </td>
+                        <td> {{ item.size }} </td>
+                        <td> {{ item.quantity }} </td>
+                        <td> $ {{ item.priceEach }} </td>
+                        <td> $ {{ item.itemTotal }} </td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> Total: </td>
+                        <td> $ {{ orderGroup.total }} </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+        {% endfor %}
+
+
+    {% else %}
+        No order.
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,290 @@
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main .leftalign
+{
+    text-align: left;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+
+.btn
+{
+  background-color: #002444;
+  color: white;
+  opacity: 0.8;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.update
+{
+  background-color: #FFE87C;
+  color: #0C090A;
+  margin-right: 0px;
+  margin-top: 0px;
+}
+
+.remove
+{
+  background-color: #437C17;
+  color: white;
+  margin-right: 20px;
+  margin-top: 40px;
+}
+
+.proceed
+{
+  background-color: #002444;
+  color: white;
+  margin-right: 50px;
+  margin-top: 40px;
+}
+
+.save
+{
+  background-color: #002444;
+  color: white;
+  margin-top: 0px;
+  margin-left: 20px;
+}
+
+.removeOrder
+{
+  background-color: #437C17;
+  color: white;
+}
+
+/* Add some hover effects to buttons */
+.btn:hover
+{
+  opacity: 1;
+}
+
+main .msg
+{
+  color: #E67451;
+}
+
+.bg-img {
+  /* The image used */
+  background-image: url('/static/orders/background.jpg');
+  min-height: 180px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* Needed to position the navbar */
+  position: relative;
+}
+
+/* Position the navbar container inside the image */
+.container {
+  position: absolute;
+  margin: 20px;
+  width: auto;
+}
+
+/* The navbar */
+.topnav {
+  overflow: hidden;
+  background-color: #71B777;
+}
+
+/* Navbar links */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 35px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #FFE87C;
+  color: black;
+}
+
+.menu_font {
+  color: #348017;
+  font-size: 2em;  /* 32px/16=2em */
+}
+
+.menu_font_small {
+  color: #348017;
+  font-size: 1em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.img-container-left {
+  float: left;
+  width: 50%;
+  padding-left: 200px;
+  padding-right: 80px;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+.img-container-right {
+  float: left;
+  width: 50%;
+  padding-left: 80px;
+  padding-right: 200px;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+/* For displaying items in each menu and selection */
+
+section {
+  display: flex;
+}
+
+section > div {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  height: 70%;
+  width: 70%;
+  display: block;
+  background: white;
+  border: 2px solid hsla(142, 75%, 50%);
+  border-radius: 50px;
+  padding: 0.5rem;
+  margin: 1rem;
+  text-align: center;
+  box-shadow: 0px 3px 10px -2px hsla(142, 0%, 70%);
+  position: relative;
+}
+
+.label_items {
+  height: 70%;
+  width: 70%;
+  display: block;
+  background: white;
+  border-radius: 50px;
+  padding: 0.5rem;
+  margin: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+input[type="radio"]:checked + label {
+  background: hsla(142, 75%, 50%);
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px hsla(142, 100%, 50%);
+  &::after {
+    color: hsla(215, 5%, 25%, 1);
+    font-family: FontAwesome;
+    border: 2px solid hsla(142, 75%, 45%, 1);
+    content: "\f00c";
+    font-size: 24px;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);
+  }
+}
+
+p {
+  font-weight: 500;
+}
+
+
+@media only screen and (max-width: 700px) {
+  section {
+    flex-direction: column;
+  }
+}
+
+
+/* For selecting quantity of items */
+
+.number {
+  margin:20px;
+}
+
+.minus, .plus {
+  width:25px;
+  height:25px;
+  background:#f2f2f2;
+  border-radius:4px;
+  border:1px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.quantity, .quantityS, .quantityL {
+  height:25px;
+  width: 40px;
+  text-align: center;
+  font-size: 15px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.itemquantity {
+  height:25px;
+  width: 70px;
+  text-align: center;
+  font-size: 15px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#noTopping, #withToppings, #Additions_S, #Additions_L {
+  padding: 15px;
+  background: #fff;
+  display: none;
+}
+
+#formButton {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}

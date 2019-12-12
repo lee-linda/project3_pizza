@@ -1,0 +1,54 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Pasta
+{% endblock %}
+
+{% block body %}
+
+  {% if pasta %}
+
+    <h4>Select your Pasta</h4>
+
+    {% for item in pasta %}
+
+      <section>
+         <div class="label_items">
+          <br>
+            <h4>{{ item.item }}</h4>
+        </div>
+
+          <div>
+            <input type="radio" id="{{ item.id }}" name="select" value="" onclick="displayAddtoCart('{{ item.item }}',
+             '-', {{ item.price }} )">
+            <label for="{{ item.id }}">
+              <h4>$ {{ item.price }}</h4>
+            </label>
+          </div>
+      </section>
+
+    {% endfor %}
+
+    <form id="noTopping" action="{% url 'addtoCart' %}" method="POST" onsubmit="return checkQuantity()">
+      {% csrf_token %}
+      <input type="hidden" name="category" value="{{ category }}">
+      <input type="hidden" id="item" name="item" value="">
+      <input type="hidden" id="addition" name="addition" value="">
+      <input type="hidden" id="size" name="size" value="">
+      <input type="hidden" id="priceEach" name="priceEach" value="">
+
+      <div class="number">
+            Quantity
+            <span class="minus">-</span>
+            <input type="number" class="itemquantity" name="quant" id="itemquantity0" value="1" min="1"/>
+            <span class="plus">+</span>
+      </div>
+
+      <br><br>
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+
+  {% endif %}
+
+
+{% endblock %}

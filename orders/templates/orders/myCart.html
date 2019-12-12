@@ -1,0 +1,90 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    My Cart
+{% endblock %}
+
+{% block body %}
+
+    {% if message %}
+        <main class="msg">
+            {{ message }}
+        </main>
+        <br>
+    {% endif %}
+
+    {% if cartItemsLst %}
+
+        <h4>My items</h4>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width:40%">Item</th>
+                    <th style="width:10%">Size</th>
+                    <th style="width:15%">Quantity</th>
+                    <th style="width:15%">Price per Item</th>
+                    <th style="width:15%">Sub-Total</th>
+                    <th style="width:5%"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in cartItemsLst %}
+                <tr>
+                    <td> {{ item.detailedItem }} <br> {{ item.addition }} </td>
+                    <td> {{ item.size }} </td>
+                    <td>
+                        <form id="updateQuantity" action="{% url 'update_quantity' item.itemID %}" method="POST" >
+
+                            {% csrf_token %}
+                             <div class="number">
+                                  <span class="minus">-</span>
+                                    <input type="number" class="itemquantity"  name="{{item.itemID}}" value="{{ item.quantity }}" min="1"/>
+                                  <span class="plus">+</span>
+                             </div>
+                             <button type="submit" class="btn update">Update</button>
+                        </form>
+
+                    </td>
+                    <td> $ {{ item.priceEach }} </td>
+                    <td> $ {{ item.itemTotal }} </td>
+                    <td>
+                        <form id="deleteItem" action="{% url 'deleteItem' item.itemID %}" method="POST" onsubmit="return confirm('Confirm deletion?');" >
+                            {% csrf_token %}
+                             <button type="submit" class="btn remove">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                <tr>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> Total: </td>
+                    <td> $ {{ total }} </td>
+                    <td> </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <form action="{% url 'submitOrder' %}" method="POST" onsubmit="return confirm('Confirm Orders?');" >
+            {% csrf_token %}
+             <button type="submit" class="btn proceed">Proceed To Order</button>
+             <button type="button" class="btn remove" onclick="confirmDeleteAll()">Remove All Items</button>
+        </form>
+
+        <form id="deleteAllItem" action="{% url 'deleteAllItem' %}" method="POST" >
+            {% csrf_token %}
+            <!-- To delete all items, no parameter needed. -->
+        </form>
+
+
+    {% else %}
+        No item in your cart.
+    {% endif %}
+
+
+{% endblock %}
